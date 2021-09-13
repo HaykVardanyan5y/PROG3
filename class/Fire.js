@@ -1,9 +1,6 @@
-class Fire {
+class Fire extends LivingCreature {
     constructor(x, y, id) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        this.multiply = 0;
+        super(x,y,index)
         this.energy = 5;
         this.getNewCord()
     }
@@ -20,22 +17,12 @@ class Fire {
             [this.x + 1, this.y + 1]
         ]
     }
-    celll(character) {
-        this.getNewCord()
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < dasht[0].length && y >= 0 && y < dasht.length) {
-                if (dasht[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
+    chooseCell(character) {
+      this.getNewCord()
+      return super.chooseCell(character)
     }
     mul() {
-        var empCells = this.celll(0)
+        var empCells = this.chooseCell(0)
         var nwCell = random(empCells)
         if (this.energy >= 8 && nwCell) {
             dasht[nwCell[1]][nwCell[0]] = this.id
@@ -46,7 +33,7 @@ class Fire {
         }
     }
     move() {
-        var emptCell = this.celll(0)
+        var emptCell = this.chooseCell(0)
         var newCell = random(emptCell)
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]
@@ -60,7 +47,7 @@ class Fire {
         }
     }
     eat() {
-        var emptCell = this.celll(1)
+        var emptCell = this.chooseCell(1)
         var newCell = random(emptCell)
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]

@@ -20,7 +20,7 @@ class Predator{
             [this.x + 1, this.y + 1]
         ]
     }
-    celll(character) {
+    chooseCell(character) {
         this.getNewCord()
         var found = [];
         for (var i in this.directions) {
@@ -35,7 +35,7 @@ class Predator{
         return found;
     }
     mul() {
-        var empCells = this.celll(0)
+        var empCells = this.chooseCell(0)
         var nwCell = random(empCells)
         if (this.energy >= 8 && nwCell) {
             dasht[nwCell[1]][nwCell[0]] = this.id
@@ -46,7 +46,7 @@ class Predator{
         }
     }
     move() {
-        var emptCell = this.celll(0)
+        var emptCell = this.chooseCell(0)
         var newCell = random(emptCell)
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]
@@ -60,7 +60,7 @@ class Predator{
         }
     }
     eat() {
-        var emptCell = this.celll(2)
+        var emptCell = this.chooseCell(2)
         var newCell = random(emptCell)
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]
@@ -82,7 +82,7 @@ class Predator{
         }else {
             this.move()
         }
-        if (random(this.celll(0)) == undefined){
+        if (random(this.chooseCell(0)) == undefined){
             if (dasht[this.y][this.x] != undefined){
                 dasht[this.y][this.x] = 0
             }
