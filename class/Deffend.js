@@ -1,4 +1,7 @@
-class Deffend {
+const LivingCreature = require("./LivingCreature");
+var random = require("./random.js");
+
+module.exports = class Deffend extends LivingCreature {
 
     constructor(x, y, id, size) {
         this.x = x;
@@ -35,7 +38,7 @@ class Deffend {
         for (var i in this.directions) {
             var newX = this.directions[i][0]
             var newY = this.directions[i][1]
-            if (newX >= 0 && newX < dasht.length && newY >= 0 && newY < dasht.length) {
+            if (newX >= 0 && newX < matrix.length && newY >= 0 && newY < matrix.length) {
                 for(var a in grassArr){
                     if(grassArr[a].x == newX && grassArr[a].y == newY){
                         grassArr.splice(a,1)
@@ -54,7 +57,7 @@ class Deffend {
                         break
                     }
                 }
-                dasht[newY][newX] = this.id
+                matrix[newY][newX] = this.id
             }
         }
     }
@@ -70,8 +73,8 @@ class Deffend {
             for (var i in this.directions) {
                 var newX = this.directions[i][0]
                 var newY = this.directions[i][1]
-                if (newX >= 0 && newX < dasht.length && newY >= 0 && newY < dasht.length) {
-                    dasht[newY][newX] = 1
+                if (newX >= 0 && newX < matrix.length && newY >= 0 && newY < matrix.length) {
+                    matrix[newY][newX] = 1
                 }
 
                 var nwGrass = new Grass(newX, newY, 1)

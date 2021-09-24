@@ -1,9 +1,9 @@
-class Predator{
+const LivingCreature = require("./LivingCreature");
+var random = require("./random.js");
+
+module.exports = class Predator extends LivingCreature{
     constructor(x, y, id) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        this.multiply = 0;
+        super(x,y,id)
         this.energy = 5;
         this.getNewCord()
     }
@@ -26,8 +26,8 @@ class Predator{
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
-            if (x >= 0 && x < dasht[0].length && y >= 0 && y < dasht.length) {
-                if (dasht[y][x] == character) {
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character) {
                     found.push(this.directions[i]);
                 }
             }
@@ -38,10 +38,10 @@ class Predator{
         var empCells = this.chooseCell(0)
         var nwCell = random(empCells)
         if (this.energy >= 8 && nwCell) {
-            dasht[nwCell[1]][nwCell[0]] = this.id
+            matrix[nwCell[1]][nwCell[0]] = this.id
             var nwPred = new Predator(nwCell[0], nwCell[1], this.id)
             predArr.push(nwPred)
-            dasht[nwCell[1]][nwCell[0]] = this.id
+            matrix[nwCell[1]][nwCell[0]] = this.id
             this.energy = 8
         }
     }
@@ -51,8 +51,8 @@ class Predator{
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]
             var newY = newCell[1]
-            dasht[this.y][this.x] = 0
-            dasht[newY][newX] = this.id
+            matrix[this.y][this.x] = 0
+            matrix[newY][newX] = this.id
 
             this.x = newX
             this.y = newY
@@ -66,8 +66,8 @@ class Predator{
             var newX = newCell[0]
             var newY = newCell[1]
 
-            dasht[this.y][this.x] = 0
-            dasht[newY][newX] = this.id
+            matrix[this.y][this.x] = 0
+            matrix[newY][newX] = this.id
 
             this.x = newX
             this.y = newY
@@ -83,8 +83,8 @@ class Predator{
             this.move()
         }
         if (random(this.chooseCell(0)) == undefined){
-            if (dasht[this.y][this.x] != undefined){
-                dasht[this.y][this.x] = 0
+            if (matrix[this.y][this.x] != undefined){
+                matrix[this.y][this.x] = 0
             }
             for(var i in predArr){
                 if(predArr[i].x == this.x && predArr[i].y == this.y){
@@ -97,7 +97,7 @@ class Predator{
     }
     die() {
         if(this.energy <= 0){
-            dasht[this.y][this.x] = 0
+            matrix[this.y][this.x] = 0
             for(var i in predArr){
                 if(predArr[i].x == this.x && predArr[i].y == this.y){
                     predArr.splice(i,1)

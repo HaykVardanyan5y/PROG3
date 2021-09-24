@@ -1,4 +1,5 @@
 var LivingCreature = require("./LivingCreature")
+var random = require("./random.js");
 
 module.exports = class Fire extends LivingCreature {
     constructor(x, y, id) {
@@ -27,10 +28,10 @@ module.exports = class Fire extends LivingCreature {
         var empCells = this.chooseCell(0)
         var nwCell = random(empCells)
         if (this.energy >= 8 && nwCell) {
-            dasht[nwCell[1]][nwCell[0]] = this.id
+            matrix[nwCell[1]][nwCell[0]] = this.id
             var nwFire = new Fire(nwCell[0], nwCell[1], this.id)
             fireArr.push(nwFire)
-            dasht[nwCell[1]][nwCell[0]] = this.id
+            matrix[nwCell[1]][nwCell[0]] = this.id
             this.energy = 5
         }
     }
@@ -40,8 +41,8 @@ module.exports = class Fire extends LivingCreature {
         if (this.energy > 0 && newCell) {
             var newX = newCell[0]
             var newY = newCell[1]
-            dasht[this.y][this.x] = 0
-            dasht[newY][newX] = this.id
+            matrix[this.y][this.x] = 0
+            matrix[newY][newX] = this.id
 
             this.x = newX
             this.y = newY
@@ -55,8 +56,8 @@ module.exports = class Fire extends LivingCreature {
             var newX = newCell[0]
             var newY = newCell[1]
 
-            dasht[this.y][this.x] = 0
-            dasht[newY][newX] = this.id
+            matrix[this.y][this.x] = 0
+            matrix[newY][newX] = this.id
 
             this.x = newX
             this.y = newY
@@ -75,7 +76,7 @@ module.exports = class Fire extends LivingCreature {
     }
     die() {
         if(this.energy <= 0){
-            dasht[this.y][this.x] = 0
+            matrix[this.y][this.x] = 0
             for(var i in fireArr){
                 if(fireArr[i].x == this.x && fireArr[i].y == this.y){
                     fireArr.splice(i,1)

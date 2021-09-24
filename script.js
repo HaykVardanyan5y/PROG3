@@ -4,7 +4,7 @@ var side = mapsize / mapLen
 
 
 function setup() {
-    dasht = generateMatrix(mapLen)
+    matrix = generateMatrix(mapLen)
     grassArr = []
     fireArr = []
     predArr = []
@@ -21,27 +21,27 @@ function setup() {
 function draw() {
     for (var i = 0; i < mapLen; i++) {
         for (var j = 0; j < mapLen; j++) {
-            if (dasht[i][j] == 0) {
+            if (matrix[i][j] == 0) {
                 fill("gray")
                 rect(j * side, i * side, side, side)
             }
-            if (dasht[i][j] == 1) {
+            if (matrix[i][j] == 1) {
                 fill("green")
                 rect(j * side, i * side, side, side)
             }
-            if (dasht[i][j] == 2) {
+            if (matrix[i][j] == 2) {
                 fill("yellow")
                 rect(j * side, i * side, side, side)
             }
-            if (dasht[i][j] == 3) {
+            if (matrix[i][j] == 3) {
                 fill("red")
                 rect(j * side, i * side, side, side)
             }
-            if (dasht[i][j] == 4) {
+            if (matrix[i][j] == 4) {
                 fill(52, 235, 155)
                 rect(j * side, i * side, side, side)
             }
-            if (dasht[i][j] == 5) {
+            if (matrix[i][j] == 5) {
                 fill(30, 0, 59)
                 rect(j * side, i * side, side, side)
             }
@@ -69,7 +69,7 @@ function draw() {
         grassArr.push(nwGrass)
     }
     //  fire spawn 
-    if (grassArr.length >= (dasht.length * 6) && fireArr.length < 1) {
+    if (grassArr.length >= (matrix.length * 6) && fireArr.length < 1) {
         var nwFire = new Fire(Math.floor(random(mapLen)), Math.floor(random(mapLen)), 2)
         fireArr.push(nwFire)
     }
@@ -102,15 +102,15 @@ function draw() {
 function creatObj() {
     for (var y = 0; y < mapLen; y++) {
         for (var x = 0; x < mapLen; x++) {
-            if (dasht[y][x] == 1) {
+            if (matrix[y][x] == 1) {
                 var nwGrass = new Grass(x, y, 1)
                 grassArr.push(nwGrass)
             }
-            if (dasht[y][x] == 2) {
+            if (matrix[y][x] == 2) {
                 var nwFire = new Fire(x, y, 2)
                 fireArr.push(nwFire)
             }
-            if (dasht[y][x] == 3) {
+            if (matrix[y][x] == 3) {
                 var nwPred = new Predator(x, y, 3)
                 predArr.push(nwPred)
             }
