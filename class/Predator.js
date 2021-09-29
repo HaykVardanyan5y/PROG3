@@ -62,7 +62,7 @@ module.exports = class Predator extends LivingCreature{
     eat() {
         var emptCell = this.chooseCell(2)
         var newCell = random(emptCell)
-        if (this.energy > 0 && newCell) {
+        if (newCell && this.energy > 0) {
             var newX = newCell[0]
             var newY = newCell[1]
 

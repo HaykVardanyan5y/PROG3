@@ -5,26 +5,20 @@ var Predator = require("./class/Predator.js");
 var Deffend = require("./class/Deffend.js");
 var random = require("./class/random.js");
 
-var express = require("express");
+
+
+var express = require('express');
+var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var app = express();
-
 app.use(express.static("."));
-
-
-app.get("/", function (req, res) {
-    res.redirect("in.html");
+app.get('/', function (req, res) {
+    res.redirect('in.html');
 });
-// app.listen(3000, function () {
-//     console.log("all ok")
-// });
-server.listen(3000)
+server.listen(3000);
 ///     SCRIPT.JS
 
-var mapsize = 620
 var mapLen = 35
-var side = mapsize / mapLen
 
 matrix = generateMatrix(mapLen)
 grassArr = []
@@ -32,6 +26,31 @@ fireArr = []
 predArr = []
 bombArr = []
 DEFArr = []
+
+weatherArr = ["winter","spring","summer","hutumn"]
+
+function generateMatrix(mapLenn) {
+    var dasht = []
+    for (var i = 0; i <= mapLenn; i++) {
+        dasht[i] = []
+        for (var j = 0; j <= mapLenn; j++) {
+            var rndID = random(100)
+            if (rndID < 60) {
+                dasht[i][j] = 1
+            } else if (rndID < 70) {
+                dasht[i][j] = 2
+            } else if (rndID < 75) {
+                dasht[i][j] = 3
+            } else {
+                dasht[i][j] = 0
+            }
+        }
+    }
+    return dasht
+}
+
+
+
 function creatObj() {
     for (var y = 0; y < mapLen; y++) {
         for (var x = 0; x < mapLen; x++) {
@@ -54,38 +73,10 @@ function creatObj() {
 creatObj()
 
 
-function generateMatrix(mapLenn) {
-    var dasht = []
-    for (var i = 0; i <= mapLenn; i++) {
-        dasht[i] = []
-        for (var j = 0; j <= mapLenn; j++) {
-            var rndID = random(100)
-            if (rndID < 60) {
-                dasht[i][j] = 1
-            } else if (rndID < 70) {
-                dasht[i][j] = 2
-            } else if (rndID < 75) {
-                dasht[i][j] = 3
-            } else {
-                dasht[i][j] = 0
-            }
-        }
-    }
-    return dasht
-}
-var grass_count = 0
 function game() {
-    // if (grassArr[0] !== undefined) {
-    //     for (var i in grassArr) {
-    //         grassArr[i].mul();
-    //     }
-    // }
-    // if (fireArr[0] !== undefined) {
-    //     for (var i in fireArr) {
-    //         fireArr[i].eat();
-    //     }
-    // }
+    ////// ----------   weather    ----------/////
 
+    weather = random(weatherArr)
 
 
     // grass spawn
@@ -123,21 +114,21 @@ function game() {
 
     //---------------------------------------//
 
-    // for (var i in grassArr) {
-    //   grassArr[i].mul();
-    // }
-    // for (var i in fireArr) {
-    //   fireArr[i].eat();
-    // }
-    // for (var i in predArr) {
-    //   predArr[i].eat();
-    // }
-    // for (var i in bombArr) {
-    //   bombArr[i].run();
-    // }
-    // for (var i in DEFArr) {
-    //   DEFArr[i].run();
-    // }
+    for (var i in grassArr) {
+      grassArr[i].mul();
+    }
+    for (var i in fireArr) {
+      fireArr[i].eat();
+    }
+    for (var i in predArr) {
+      predArr[i].eat();
+    }
+    for (var i in bombArr) {
+      bombArr[i].run();
+    }
+    for (var i in DEFArr) {
+      DEFArr[i].run();
+    }
 
     //---------------------------------------//
     // for(var i = 0;i <= matrix.lenght ;i++){
@@ -148,17 +139,16 @@ function game() {
     //   }
     // }
     //! Object to send
-    let sendData = [{
+    let sendData = {
         matrix: matrix,
-        grassArr: grassArr,
-        fireArr: fireArr,
-        predArr: predArr,
-        bombArr: bombArr,
-        DEFArr: DEFArr,
-        grassCounter: grass_count
-    }]
-
+        grassCounter: grassArr.length,
+        grassEaterCounter: fireArr.length,
+        predatorCounter: predArr.length,
+        bombCounter: bombArr.length,
+        defCounter: DEFArr.length,
+        weather: weather
+    }
     //! Send data over the socket to clients who listens "data"
-    io.sockets.emit("data", {sendData});
+    io.sockets.emit("data", sendData);
 }
-setInterval(game, 1000)
+setInterval(game, 250)
