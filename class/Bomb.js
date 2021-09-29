@@ -3,9 +3,7 @@ var random = require("./random.js");
 
 module.exports = class Bomb extends LivingCreature {
     constructor(x, y, id) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
+        super(x,y,id)
         this.energy = 2
         this.directions = []
     }
@@ -69,4 +67,3 @@ module.exports = class Bomb extends LivingCreature {
         this.energy--
     }
 }
-

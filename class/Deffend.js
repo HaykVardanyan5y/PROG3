@@ -1,12 +1,10 @@
 const LivingCreature = require("./LivingCreature");
+const Grass = require("./Grass");
 var random = require("./random.js");
 
 module.exports = class Deffend extends LivingCreature {
-
-    constructor(x, y, id, size) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
+    constructor(x, y, id,size) {
+        super(x,y,id)
         this.energy = 20
         this.size = size
         this.directions = [
@@ -49,7 +47,7 @@ module.exports = class Deffend extends LivingCreature {
                     if(fireArr[b].x == newX && fireArr[b].y == newY){
                         fireArr.splice(b,1)
                         break
-                    }       
+                    }
                 }
                 for(var c in predArr){
                     if(predArr[c].x == newX && predArr[c].y == newY){
@@ -85,4 +83,3 @@ module.exports = class Deffend extends LivingCreature {
     }
 
 }
-

@@ -9,7 +9,7 @@ module.exports = class Grass extends LivingCreature {
         if(this.multiply >= 8 && nwCell){
             var nwGrass = new Grass(nwCell[0],nwCell[1],this.id)
             grassArr.push(nwGrass)
-            dasht[nwCell[1]][nwCell[0]] = this.id
+            matrix[nwCell[1]][nwCell[0]] = this.id
             this.multiply = 0
         }
     }
