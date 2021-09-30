@@ -72,11 +72,15 @@ function creatObj() {
 
 creatObj()
 
-
+timeOut = 0
+weather = random(weatherArr)
 function game() {
     ////// ----------   weather    ----------/////
-
-    weather = random(weatherArr)
+    timeOut++
+    if(timeOut >= 20){
+        weather = random(weatherArr)
+        timeOut = 0
+    }
 
 
     // grass spawn
@@ -141,7 +145,7 @@ function game() {
     //! Object to send
     let sendData = {
         matrix: matrix,
-        grassCounter: grassArr.length,
+        grassCounter: grassArr,
         grassEaterCounter: fireArr.length,
         predatorCounter: predArr.length,
         bombCounter: bombArr.length,
@@ -151,4 +155,4 @@ function game() {
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }
-setInterval(game, 250)
+setInterval(game, 500)

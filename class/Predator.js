@@ -20,19 +20,16 @@ module.exports = class Predator extends LivingCreature{
             [this.x + 1, this.y + 1]
         ]
     }
-    chooseCell(character) {
-        this.getNewCord()
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
+    die() {
+        if(this.energy <= 0){
+            for(var i in predArr){
+                if(predArr[i].x == this.x && predArr[i].y == this.y){
+                    predArr.splice(i,1)
+                    break
                 }
             }
+            matrix[this.y][this.x] = 0
         }
-        return found;
     }
     mul() {
         var empCells = this.chooseCell(0)
@@ -57,7 +54,7 @@ module.exports = class Predator extends LivingCreature{
             this.x = newX
             this.y = newY
             this.energy--
-        }
+        }else{this.die()}
     }
     eat() {
         var emptCell = this.chooseCell(2)
@@ -94,16 +91,5 @@ module.exports = class Predator extends LivingCreature{
             }
         }
         this.die()
-    }
-    die() {
-        if(this.energy <= 0){
-            matrix[this.y][this.x] = 0
-            for(var i in predArr){
-                if(predArr[i].x == this.x && predArr[i].y == this.y){
-                    predArr.splice(i,1)
-                    break
-                }
-            }
-        }
     }
 }

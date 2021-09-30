@@ -49,6 +49,16 @@ module.exports = class Bomb extends LivingCreature {
             var newY = this.directions[i][1]
             matrix[newY][newX] = this.id
         }
+        for(var i in grassArr){
+            for (var a in this.directions) {
+                var newX = this.directions[a][0]
+                var newY = this.directions[a][1]
+                if(grassArr[i].x == newX && grassArr[i].y == newY){
+                    grassArr.splice(i,1)
+                    break
+                }
+            }
+        }
     }
     die() {
         if (this.energy <= 0) {
