@@ -6,91 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Game Of Life</title>
-  <style>
-    canvas {
-        display: inline;
-        margin: 0 auto;
-    }
-
-    div {
-        display: inline-block;
-    }
-
-    h1 {
-        padding: 20px;
-        text-align: center;
-    }
-
-    body {
-        font-family: 'Noto Sans', sans-serif !important;
-    }
-    tbody > tr > td{
-      width: 2em;
-      height: 2em;
-      text-align: center;
-    }
-    tbody:nth-child(2){
-      width: 2em;
-      height: 2em;
-      text-align: left;
-    }
-    thead th{
-      width: auto;
-      padding: 5px;
-    }
-    #menu{
-        display: flex;
-        padding: 0;
-        margin-left: 0;
-
-    }
-    canvas{
-        margin: 0 0;
-    }
-    .box{
-        width: 1.2em;
-        height: 1.2em;
-    }
-    .char{
-        margin-left: 2px;
-        padding: 5px;
-        order: 2;
-        border: rgb(200,200,200) solid 2px ;
-    }
-    .char >  Form > input{
-        display: none;
-    }
-    .charSize > p,.char > h2,.charSize > h2{
-      text-align: center;
-      margin-bottom: 2em;
-    }
-    .char > Form > div {
-      margin-right: 1rem;
-    }
-    .charSize > label{
-      display: inline-block;
-      text-align: center;
-    }
-    .char > Form > label{
-        display: inline-block;
-        margin-right: 0.1rem;
-        width: 15px;
-        height: 15px;
-        border: gray solid 2px;
-        border-radius: 50%;
-    }
-    .char > Form > input:checked + label{
-      width: 7px;
-      height: 7px;
-      border: gray solid 7px;
-      border-radius: 50%;
-    }
-
-    #clickSize{
-      width: 100%;
-
-    }
-</style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -150,20 +66,15 @@
               <div class="box" style="background-color:rgb(230, 110, 0)"></div>
 
           </form>
-          <div class="charSize">
-              <p>size</p>
-              <input type="range" min="1" max="15" id="clickSize" name="clickSize" checked>
-              <label for="range" id="rngvalue" style="text-align: center;">6</label>
-          </div>
 
       </div>
   </div>
 
 
+
   <script src="p5.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
-  <script src="mousEvent.js"></script>
 </body>
 
 </html>
