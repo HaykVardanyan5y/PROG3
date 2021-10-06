@@ -1,6 +1,6 @@
 var Grass = require("./class/Grass.js");
 var Fire = require("./class/Fire.js");
-var Bomb = require("./class/Bomb.js");
+var Lighting = require("./class/Lighting.js");
 var Predator = require("./class/Predator.js");
 var Deffend = require("./class/Deffend.js");
 var random = require("./class/random.js");
@@ -23,11 +23,12 @@ matrix = generateMatrix(mapLen)
 grassArr = []
 fireArr = []
 predArr = []
-bombArr = []
+LightingArr = []
 DEFArr = []
 
-var weather = 0
+var mullt = 8
 var weatherArr = ["winter","spring","summer","hutumn"]
+var weather = random(weatherArr)
 
 function generateMatrix(mapLenn) {
     var dasht = []
@@ -72,13 +73,25 @@ function creatObj() {
 
 creatObj()
 
+mullc = 8
 timeOut = 0
-weather = random(weatherArr)
+
 function game() {
     ////// ----------   weather    ----------/////
     timeOut++
     if(timeOut >= 20){
-        weather = random(weatherArr)
+      if (weather == "winter") {
+        weather = "spring"
+      }
+      if (weather == "spring") {
+        weather = "summer"
+      }
+      if (weather == "summer") {
+        weather = "hutumn"
+      }
+      if (weather == "hutumn") {
+        weather = "winter"
+      }
         timeOut = 0
     }
 
@@ -104,25 +117,29 @@ function game() {
       var nwDEF = new Deffend(Math.floor(random(mapLen)), Math.floor(random(mapLen)), 4, Math.ceil(random(5)))
       DEFArr.push(nwDEF)
     }
-    
-    //   weather  
-    
+
+    //   weather
+
     if (weather == "winter") {
-      var bgcolor = "#d2fcfc";
+      var bgcolor = "#bdfeff";
+      mullc = 8
     }
     if (weather == "spring") {
-      var bgcolor = "#fadc78";
+      var bgcolor = "#cff266";
+      mullc = 6
     }
     if (weather == "summer") {
       var bgcolor = "#167002";
+      mullc = 7
     }
     if (weather == "hutumn") {
-      var bgcolor = "#fadc78";
+      var bgcolor = "#cff266";
+      mullc = 5
     }
     if (weather != "summer") {
-      if (fireArr.length >= 20 && predArr.length == 0 || predArr.length >= 5) {
-        var nwBomb = new Bomb(Math.floor(random(mapLen)), Math.floor(random(mapLen)), 5)
-        bombArr.push(nwBomb)
+      if ((LightingArr.length <= 5 && fireArr.length >= 20) && predArr.length == 0 || predArr.length >= 5 ) {
+        var nwLighting = new Lighting(Math.floor(random(mapLen)), Math.floor(random(mapLen)), 5)
+        LightingArr.push(nwLighting)
       }
     }
 
@@ -137,8 +154,8 @@ function game() {
     for (var i in predArr) {
       predArr[i].eat();
     }
-    for (var i in bombArr) {
-      bombArr[i].run();
+    for (var i in LightingArr) {
+      LightingArr[i].run();
     }
     for (var i in DEFArr) {
       DEFArr[i].run();
@@ -153,20 +170,18 @@ function game() {
     //   }
     // }
     //! Object to send
-
     let sendData = {
         matrix: matrix,
-        grassCounter: grassArr,
+        grassCounter: grassArr.length,
         grassEaterCounter: fireArr.length,
         predatorCounter: predArr.length,
-        bombCounter: bombArr.length,
+        LightingCounter: LightingArr.length,
         defCounter: DEFArr.length,
         weather: weather,
         bgcolor: bgcolor
     }
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
+    module.exports.mull =  mullt ;
 }
 setInterval(game, 500)
-
-module.exports = { weather };

@@ -21,57 +21,41 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Գույն</th>
-            <th scope="col">Ծնվել է</th>
+            <th scope="col" style="padding-right: 1.3em;">dashtum ka</th>
+            <th scope="col">#</th>
+            <th scope="col">Գույն</th>
+            <th scope="col">dashtum ka</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <th scope="row">1</th>
-            <td scope="row" style="background-color:green;"></td>
+            <td scope="row" style="background-color:green;" class="tooltip" id="grass"><span class="tooltiptext">Xot <br> bazmanalu jamanaky kaxvac e tarva exanakic </span></td>></td>
             <td id="grassCount"></td>
+            <th scope="row">2</th>
+            <td scope="row" style="background-color:yellow;" class="tooltip"><span class="tooltiptext">Xotaker kam Krak <br> vochnchacnum e xotin ev bazmanum 4 xot uteluc heto. mahanum e 8 cikl anyndmej xot chuteluc</span></td>></td>
+            <td id="grassEaterCount"></td>
         </tr>
         <tr>
-            <th scope="row">2</th>
-            <td scope="row" style="background-color:yellow;"></td>
-            <td id="grassEaterCount"></td>
+            <th scope="row">3</th>
+            <td scope="row" style="background-color:red;" class="tooltip"><span class="tooltiptext">Gishatic <br>   haytnvum e erb xotakeri qanaky mece kam havasar 20-i. Vochnchacnum e xotakerin, bazmanum e 2 xotaker uteluc heto. mahanum e 8 cikl anyndmej xotaker chuteluc</span></td>></td>
+            <td id="predatorCount"></td>
+            <th scope="row">4</th>
+            <td scope="row" style="background-color:rgb(36, 144, 145);" class="tooltip"><span class="tooltiptext">  Vahan <br>Haytnvum e erb xotakeri qanaky mece 20 ic ev Vahani qanaky qich e 2 ic, haytnvum e cankacac tex ,mnum e 20 cikl ev pashtpanum xotin bolor kerparneric</span></td>
+            <td id="defCount"></td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td scope="row" style="background-color:blue;" class="tooltip"><span class="tooltiptext">Kaycak <br> haytnvum e dzmrany,ashnany ev garnany, maximal qanaky 2</span></td>
+            <td id="lightingCount"></td>
+            <th scope="row">6</th>
+            <td scope="row" style="background-color: #d12a0d;" class="tooltip"><span class="tooltiptext">Bomb <br>  Haytnvum e qliqi jamanak .Vochnchacnum e bolorin baci kaycakic ev Vahan</span></td>></td>
+            <td id="bombCount"></td>
         </tr>
     </tbody>
   </table>
-  <!--     =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=      -->
 
-  <div id="menu">
-      <div class="char">
-          <h2>Click Event</h2>
-          <p>Character</p>
-
-          <form>
-              <input type="radio" id="char" name="char" checked>
-              <label for="char"></label>
-              <div class="box" style="background-color:green"></div>
-
-              <input type="radio" id="char2" name="char">
-              <label for="char2"></label>
-              <div class="box" style="background-color:yellow"></div>
-
-              <input type="radio" id="char3" name="char">
-              <label for="char3"></label>
-              <div class="box" style="background-color:red"></div>
-
-              <input type="radio" id="char4" name="char">
-              <label for="char4"></label>
-              <div class="box" style="background-color:rgb(52, 235, 155)"></div>
-
-              <input type="radio" id="char5" name="char">
-              <label for="char5"></label>
-              <div class="box" style="background-color:rgb(230, 110, 0)"></div>
-
-          </form>
-
-      </div>
-  </div>
-
-
-
+  <script src="class/Bomb.js"></script>
   <script src="p5.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>

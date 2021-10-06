@@ -81,5 +81,4 @@ module.exports = class Deffend extends LivingCreature {
         }
         this.energy--
     }
-
 }

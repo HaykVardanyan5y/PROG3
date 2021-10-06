@@ -1,79 +1,95 @@
-const LivingCreature = require("./LivingCreature");
-var random = require("./random.js");
+var socket = io()
+class Bomb {
+  constructor(x, y, id)
+  {
+     this.x = x;
+     this.y = y;
+     this.id = id;
+     this.multiply = 0;
+     this.energy = 50;
+     this.directions = [
+         [this.x -1 ,this.y-1],
+         [this.x ,this.y-1],
+         [this.x +1 ,this.y-1],
+         [this.x -1 ,this.y],
+         [this.x ,this.y],
+         [this.x +1 ,this.y],
+         [this.x -1 ,this.y+1],
+         [this.x ,this.y+1],
+         [this.x +1 ,this.y+1],
 
-module.exports = class Bomb extends LivingCreature {
-    constructor(x, y, id) {
-        super(x,y,id)
-        this.energy = 2
-        this.directions = []
-    }
-    run() {
-        // directions Bomb
-        for (var i = 0; i < matrix.length; i++) {
-            if (i % 6 == 2 || i % 6 == 3) {
-                if (this.y - 1 < matrix.length && this.y - 1 >= 0) {
-                    this.directions.push([i, this.y - 1])
-                }
-            }
-            else if (i % 6 == 5) {
-                if (this.y + 1 < matrix.length && this.y + 1 >= 0) {
-                    this.directions.push([i, this.y + 1])
-                }
-            } else {
-                this.directions.push([i, this.y])
-            }
+         [this.x+2 ,this.y-1],
+         [this.x+2 ,this.y],
+         [this.x+2 ,this.y+1],
+         [this.x-2 ,this.y-1],
+         [this.x-2 ,this.y],
+         [this.x-2 ,this.y+1],
+         [this.x-1 ,this.y+2],
+         [this.x ,this.y+2],
+         [this.x+1 ,this.y+2],
+         [this.x-1 ,this.y-2],
+         [this.x ,this.y-2],
+         [this.x+1 ,this.y-2]
+
+     ]
+  }
+  die()
+  {
+    if (this.energy <= 0) {
+        for(var i in bombArr){
+          if(bombArr[i].x == newX && bombArr[d].y == newY){
+            bombArr.splice(i,1)
+            break
+          }
         }
-        for (var j = 0; j < matrix.length; j++) {
-            if (j % 7 == 1 || j % 7 == 2) {
-                if (this.x - 1 < matrix.length - 1 && this.x - 1 >= 0) {
-                    this.directions.push([this.x - 1, j])
-                }
-            }
-            else if (j % 7 == 4 || j % 7 == 6) {
-                if (this.x - 1 < matrix.length - 1 && this.x - 1 >= 0) {
-                    this.directions.push([this.x + 1, j])
-                }
-            } else {
-                this.directions.push([this.x, j])
-            }
-
-        }
-        //
-
-        this.spawn()
-        this.die()
-    }
-    spawn() {
         for (var i in this.directions) {
             var newX = this.directions[i][0]
             var newY = this.directions[i][1]
-            matrix[newY][newX] = this.id
-        }
-        for(var i in grassArr){
-            for (var a in this.directions) {
-                var newX = this.directions[a][0]
-                var newY = this.directions[a][1]
-                if(grassArr[i].x == newX && grassArr[i].y == newY){
-                    grassArr.splice(i,1)
-                    break
-                }
-            }
-        }
-    }
-    die() {
-        if (this.energy <= 0) {
-            for (var i in bombArr) {
-                if (bombArr[i].x == this.x && bombArr[i].y == this.y) {
-                    bombArr.splice(i, 1)
-                    break
-                }
-            }
-            for (var i in this.directions) {
-                var newX = this.directions[i][0]
-                var newY = this.directions[i][1]
+            if (newX >= 0 && newX < matrix.length && newY >= 0 && newY < matrix.length) {
                 matrix[newY][newX] = 0
             }
         }
-        this.energy--
     }
+    this.energy--
+  }
+  spawn()
+  {
+    for (var i in this.directions)
+    {
+      var newX = this.directions[i][0]
+      var newY = this.directions[i][1]
+      if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length)
+      {
+        console.log(data.grassArr)
+        // for(var a in grassArr){
+        //   if(grassArr[a].x == newX && grassArr[a].y == newY){
+        //     grassArr.splice(a,1)
+        //     break
+        //   }
+        // }
+        // for(var b in fireArr){
+        //   if(fireArr[b].x == newX && fireArr[b].y == newY){
+        //     fireArr.splice(b,1)
+        //     break
+        //   }
+        // }
+        // for(var c in predArr){
+        //   if(predArr[c].x == newX && predArr[c].y == newY){
+        //     predArr.splice(c,1)
+        //     break
+        //   }
+        // }
+        for(var d in LightingArr){
+          if(LightingArr[d].x == newX && LightingArr[d].y == newY){
+            LightingArr.splice(d,1)
+            break
+          }
+        }
+        matrix[newY][newX] = this.id
+      }
+    }
+    this.die()
+  }
+
+  socket.on("data", this.spawn);
 }
