@@ -1,4 +1,3 @@
-var socket = io()
 class Bomb {
   constructor(x, y, id)
   {
@@ -91,5 +90,5 @@ class Bomb {
     this.die()
   }
 
-  socket.on("data", this.spawn);
+  // socket.on("data", this.spawn);
 }

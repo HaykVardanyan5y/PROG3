@@ -137,7 +137,7 @@ function game() {
       mullc = 5
     }
     if (weather != "summer") {
-      if ((LightingArr.length <= 5 && fireArr.length >= 20) && predArr.length == 0 || predArr.length >= 5 ) {
+      if ((LightingArr.length <= 1 && fireArr.length >= 20) && predArr.length == 0 ) {
         var nwLighting = new Lighting(Math.floor(random(mapLen)), Math.floor(random(mapLen)), 5)
         LightingArr.push(nwLighting)
       }

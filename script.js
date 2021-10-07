@@ -4,15 +4,6 @@ var side = 15
 
 var socket = io()
 var bombArr = []
-function creatobject(event) {
-  x = Math.floor((event.clientX / side) - 0.6)
-  y = Math.floor((event.pageY-404) / side - 0.6)
-  // y = Math.floor((event.clientY-24)/18.4)
-  // console.log(x + " ,  " +y)
-  a = new Bomb(x, y, 6);
-  bombArr.push(a)
-
-}
 
 function setup() {
   matrix = []
@@ -42,9 +33,7 @@ function setup() {
     //! clearing background by setting it to new grey color
     background(data.bgcolor);
 
-    // mouse event
-
-    document.getElementById('defaultCanvas0').addEventListener("click", creatobject)
+    /////////// mouse event fail  (((
 
     document.getElementById("grass").style.backgroundColor = data.bgcolor
     for (var i in bombArr) {
